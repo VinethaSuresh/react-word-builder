@@ -4,7 +4,7 @@ import { UserInput } from "./UserInput";
 import { Redirect } from 'react-router-dom';
 
 export function MainPage() {
-    let [randomChar, setRandomChar] = useState(randomCharGen(10));
+    let [randomChar, setRandomChar] = useState(randomCharGen(8, 2));
     let [success, setSuccess] = useState(false);
 
     let [booleanValues, setbooleanValues] = useState([
@@ -14,18 +14,31 @@ export function MainPage() {
         { key: 3, valid: false },
         { key: 4, valid: false },
     ]);
-    function randomCharGen(alphabetLength) {
-        let alphabets = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+
+    let [activeInput, setActiveInput] = useState(0);
+
+    function randomCharGen(consonantLength, vowelLength) {
+        let consonant = ["b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "y", "z"];
+        let vowel = ["a", "e", "i", "o", "u"];
         let arr = [];
-        for (let i = 0; i < alphabetLength; i++) {
-            arr.push((alphabets[(Math.floor(Math.random() * alphabets.length))]).toUpperCase());
+        for (let i = 0; i < consonantLength; i++) {
+            arr.push((consonant[(Math.floor(Math.random() * consonant.length))]).toUpperCase());
         }
+        for (let i = 0; i < vowelLength; i++) {
+            arr.push((vowel[(Math.floor(Math.random() * vowel.length))]).toUpperCase());
+        }
+
+
         return arr;
     }
     function booleanUpdater(key, valid) {
         for (let bv of booleanValues) {
             if (bv.key === key) {
                 bv.valid = valid;
+            }
+            if (bv.key === key && bv.valid) {
+                setActiveInput(activeInput + 1);
+                console.log("activeInput", activeInput);
             }
         }
         setbooleanValues([...booleanValues]);
@@ -41,7 +54,7 @@ export function MainPage() {
     }
 
 
-    let userInputArr = booleanValues.map((booleanValue) => (<UserInput randomChar={randomChar} booleanValue={booleanValue} booleanUpdater={booleanUpdater} />));
+    let userInputArr = booleanValues.map((booleanValue) => (<UserInput randomChar={randomChar} booleanValue={booleanValue} booleanUpdater={booleanUpdater} activeInput={activeInput} />));
     return (
         <div className="w-full h-full flex flex-col items-center">
             <div>
