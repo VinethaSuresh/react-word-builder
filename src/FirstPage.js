@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-export function FirstPage() {
+export function FirstPage(props) {
     // doing styleing using tailwind CSS and returning the jsx
     return (
         <div className="h-full w-full flex flex-col justify-between">
@@ -12,11 +12,10 @@ export function FirstPage() {
                 <div className="text-black text-4xl font-extrabold">Give me Five</div>
             </div>
             <div className="w-full h-32 flex  justify-center ">
-                <Link to="/main">
-                    <button className=" border w-36 h-16 border-solid bg-black text-white rounded-full font-bold text-2xl">
-                        PLAY</button></Link>
+                <button className=" border w-36 h-16 border-solid bg-black text-white rounded-full font-bold text-2xl" onClick={() => props.setCurrentPage("main")}>
+                    PLAY</button>
             </div>
-            <img src="firstPage.jpeg" alt="highFive" className=" bg-white h-72 w-full"></img>
+            <img src="image/firstPage.jpeg" alt="highFive" className=" bg-white h-72 w-full"></img>
         </div >
 
     );

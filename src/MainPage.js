@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { RandomChars } from "./RandomChars";
 import { UserInput } from "./UserInput";
 import { Redirect } from 'react-router-dom';
+import { PreviousMap } from 'postcss';
 
 
-export function MainPage() {
+export function MainPage(props) {
     // creating state for randomChar
     let [randomChar, setRandomChar] = useState(randomCharGen(8, 2));
-    // creating state for success
-    let [success, setSuccess] = useState(false);
     // creating state for userInputs
     let [userInputs, setuserInputs] = useState([
         { key: 0, valid: false, inputValue: "" },
@@ -65,15 +64,10 @@ export function MainPage() {
         // checking whether all userinputs.valid is true 
         let result = userInputs.every(bv => bv.valid);
 
-        //if all the userinputs.valid is true , setting the success to true;
+        //if all the userinputs.valid is true , redirects to last page
         if (result) {
-            setSuccess(true);
+            props.setCurrentPage("last");
         }
-    }
-
-    // if sucess is true we are redirecting to last page
-    if (success) {
-        return <Redirect to="/last" />;
     }
 
     let inputValueArr = userInputs.map(item => item.inputValue);

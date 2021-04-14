@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-export function LastPage() {
+export function LastPage(props) {
     // doing styleing using tailwind CSS and returning the jsx
     return (
         <div className="h-full w-full flex flex-col justify-between">
@@ -15,9 +15,8 @@ export function LastPage() {
                 <img src="/image/lastPage.jpg" alt="highFive" className="h-64 w-full"></img>
             </div>
             <div className="w-full h-32 flex  justify-center">
-                <Link to="/main">
-                    <button className=" border w-36 h-16 border-solid bg-black text-white rounded-full font-bold text-xl">
-                        PLAY AGAIN</button></Link>
+                <button className=" border w-36 h-16 border-solid bg-black text-white rounded-full font-bold text-xl" onClick={() => props.setCurrentPage("first")}>
+                    PLAY AGAIN</button>
             </div>
 
 
